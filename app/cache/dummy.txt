@@ -1,0 +1,2 @@
+This dummy file is here to make sure the cache folder is created while cloning.
+The Docker build is handling the creation of this folder itself.
