@@ -16,3 +16,4 @@ As this Python application requires some external dependancies like Tesseract, t
 Or, if you want to keep your cache on the host machine:
 5 - docker run -d --name=gaspricesapi -p 5035:5035/tcp -v /your/host/folder/here:/home/apiuser/app/cache gaspricesapi:latest
 ```
+If you completed above steps, navigate to http://localhost:5035/docs or http://machineipordns:5035/docs to open up the API docs.
