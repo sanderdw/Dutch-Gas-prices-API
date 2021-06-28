@@ -44,6 +44,7 @@ RUN pip install \
     tesseract \
     pytesseract \
     Pillow
+    geopy
 
 # Copy the python files to the image
 COPY ./app/api.py /home/apiuser/app/api.py
