@@ -49,6 +49,7 @@ RUN pip install \
 # Copy the python files to the image
 COPY ./app/api.py /home/apiuser/app/api.py
 COPY ./app/gas_prices.py /home/apiuser/app/gas_prices.py
+COPY ./app/gas_stations.py /home/apiuser/app/gas_stations.py
 WORKDIR /home/apiuser/app
 
 # Expose 5035 port for API
