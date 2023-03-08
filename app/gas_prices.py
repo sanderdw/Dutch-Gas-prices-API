@@ -13,7 +13,8 @@ from fake_headers import Headers
 
 # Settings
 # Something like lru_cache would be nice but has no time expiring support, so custom json storage
-CACHE_TIME = 3600
+#CACHE_TIME = 3600
+CACHE_TIME = 300
 
 def gas_prices(station_id):
     """
@@ -65,12 +66,18 @@ def gas_prices(station_id):
             ocr_lines = ocr_result.split("\n")
 
             benzine_prijs = _search_value(ocr_lines, 'Euro 95')
+            if (benzine_prijs is None):
+                benzine_prijs = _search_value(ocr_lines, '(E10)')
+            benzine_prijs_98 = _search_value(ocr_lines, 'Euro 98')
             diesel_prijs = _search_value(ocr_lines, 'Diesel')
+            if (benzine_prijs_98 is None):
+                benzine_prijs_98 = _search_value(ocr_lines, 'Supreme 98')
 
             if (benzine_prijs is None) or (diesel_prijs is None):
                 data = {
                     'station_id': station_id,
                     'benzine_prijs': benzine_prijs,
+                    'benzine_prijs_98': benzine_prijs_98,
                     'diesel_prijs' : diesel_prijs,
                     'ocr_station' : ocr_lines[0],
                     'status' : 'Station exists?'
@@ -79,6 +86,7 @@ def gas_prices(station_id):
                 data = {
                     'station_id': station_id,
                     'benzine_prijs': benzine_prijs,
+                    'benzine_prijs_98': benzine_prijs_98,
                     'diesel_prijs' : diesel_prijs,
                     'ocr_station' : ocr_lines[0],
                     'status' : 'Ok'
@@ -95,6 +103,7 @@ def gas_prices(station_id):
             data = {
                 'station_id': None,
                 'benzine_prijs': None,
+                'benzine_prijs_98': None,
                 'diesel_prijs' : None,
                 'ocr_station' : None,
                 'status' : f'{response.status_code}'
